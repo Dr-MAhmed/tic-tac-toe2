@@ -109,6 +109,8 @@
         .controls {
             margin-top: 2rem;
             display: flex;
+            justify-content: center;
+            align-items: center;
             gap: 1rem;
         }
 
@@ -227,3 +229,9 @@
                 width: 100%;
             }
         }
+
+        .main{
+            display: none;
+        }
+
+        

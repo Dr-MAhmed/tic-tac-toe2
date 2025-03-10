@@ -1,15 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Modern Tic Tac Toe</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <h1>Tic Tac Toe</h1>
-    <div class="status" id="status">X's Turn</div>
-    <div class="board" id="board">
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <button id="playBtn">Play</button>
+    <div class="main">
+      <h1>Tic Tac Toe</h1>
+      <div class="status" id="status">X's Turn</div>
+      <div class="board" id="board">
         <div class="cell" data-cell></div>
         <div class="cell" data-cell></div>
         <div class="cell" data-cell></div>
@@ -19,14 +21,14 @@
         <div class="cell" data-cell></div>
         <div class="cell" data-cell></div>
         <div class="cell" data-cell></div>
-    </div>
-    <div class="controls">
+      </div>
+      <div class="controls">
         <button id="reset">Reset Game</button>
         <button id="ai-move">AI Move</button>
+        <button id="multiPlayer">Multi Play</button>
+      </div>
     </div>
 
-    <script src="script.js">
-       
-    </script>
-</body>
+    <script src="script.js"></script>
+  </body>
 </html>
