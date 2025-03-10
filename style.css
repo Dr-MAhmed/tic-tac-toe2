@@ -1,0 +1,229 @@
+        :root {
+            --primary: #3a86ff;
+            --secondary: #ff006e;
+            --dark: #1a1a2e;
+            --light: #ffffff;
+            --grid-size: min(80vw, 450px);
+            --cell-size: calc(var(--grid-size) / 3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--dark);
+            color: var(--light);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 2rem;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            text-align: center;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: title-fade 1s ease-in;
+        }
+
+        .status {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            height: 2rem;
+            animation: status-fade 0.3s ease-in;
+        }
+
+        .board {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(3, 1fr);
+            gap: 10px;
+            width: var(--grid-size);
+            height: var(--grid-size);
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            position: relative;
+        }
+
+        .cell {
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 5px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            font-size: calc(var(--cell-size) * 0.6);
+            transition: all 0.2s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cell:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .cell.x::before, .cell.x::after {
+            content: '';
+            position: absolute;
+            width: 10%;
+            height: 70%;
+            background-color: var(--primary);
+            border-radius: 5px;
+        }
+
+        .cell.x::before {
+            transform: rotate(45deg) scale(0);
+            animation: x-animation-1 0.3s forwards;
+        }
+
+        .cell.x::after {
+            transform: rotate(-45deg) scale(0);
+            animation: x-animation-2 0.3s 0.15s forwards;
+        }
+
+        .cell.o::before {
+            content: '';
+            position: absolute;
+            width: 70%;
+            height: 70%;
+            border: 8px solid var(--secondary);
+            border-radius: 50%;
+            transform: scale(0);
+            animation: o-animation 0.3s forwards;
+        }
+
+        .controls {
+            margin-top: 2rem;
+            display: flex;
+            gap: 1rem;
+        }
+
+        button {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            transition: all 0.2s ease;
+            background-color: var(--primary);
+            color: var(--light);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 7px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        button:active {
+            transform: translateY(0);
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        button#reset {
+            background-color: var(--secondary);
+        }
+
+        .winning-line {
+            position: absolute;
+            background-color: rgba(255, 255, 255, 0.7);
+            z-index: 1;
+            transform-origin: center;
+            animation: line-animation 0.5s forwards;
+        }
+
+        /* Win animations */
+        .board.win .cell:not(.winning-cell) {
+            opacity: 0.5;
+        }
+
+        .winning-cell {
+            animation: win-pulse 1s infinite alternate;
+        }
+
+        @keyframes win-pulse {
+            from { transform: scale(1); }
+            to { transform: scale(1.05); box-shadow: 0 0 20px rgba(255, 255, 255, 0.3); }
+        }
+
+        @keyframes x-animation-1 {
+            to { transform: rotate(45deg) scale(1); }
+        }
+
+        @keyframes x-animation-2 {
+            to { transform: rotate(-45deg) scale(1); }
+        }
+
+        @keyframes o-animation {
+            from { transform: scale(0); }
+            to { transform: scale(1); }
+        }
+
+        @keyframes line-animation {
+            from { transform: scaleX(0); }
+            to { transform: scaleX(1); }
+        }
+
+        @keyframes title-fade {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes status-fade {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Responsive design for smaller screens */
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            .status {
+                font-size: 1.2rem;
+            }
+
+            :root {
+                --grid-size: min(90vw, 350px);
+            }
+
+            .cell.x::before, .cell.x::after {
+                width: 12%;
+                height: 70%;
+            }
+
+            .cell.o::before {
+                border-width: 6px;
+            }
+        }
+
+        @media (max-width: 400px) {
+            h1 {
+                font-size: 1.7rem;
+            }
+
+            .controls {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            button {
+                width: 100%;
+            }
+        }
